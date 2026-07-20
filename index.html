@@ -491,6 +491,157 @@
       color: var(--muted);
     }
 
+    .workout-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+    
+    .workout-tab {
+      appearance: none;
+      border: 1px solid rgba(255, 122, 168, 0.18);
+      background: rgba(255, 255, 255, 0.72);
+      color: #c94f7a;
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 13px;
+      cursor: pointer;
+      transition: transform 0.16s ease, background 0.16s ease, color 0.16s ease;
+    }
+    
+    .workout-tab:hover {
+      transform: translateY(-1px);
+    }
+    
+    .workout-tab.active {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+    
+    .workout-panel {
+      display: none;
+      margin-top: 18px;
+    }
+    
+    .workout-panel.active {
+      display: block;
+    }
+    
+    .workout-card {
+      background: rgba(255, 255, 255, 0.82);
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.78);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 24px;
+    }
+    
+    .workout-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: flex-start;
+      margin-bottom: 18px;
+    }
+    
+    .workout-label {
+      display: inline-flex;
+      width: fit-content;
+      margin-bottom: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(255, 122, 168, 0.12);
+      color: #c94f7a;
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    .workout-header h2,
+    .empty-workout h2 {
+      margin: 0 0 8px;
+      font-size: 28px;
+      letter-spacing: -0.04em;
+    }
+    
+    .workout-header p,
+    .empty-workout p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.45;
+    }
+    
+    .workout-badge {
+      display: inline-flex;
+      flex: 0 0 auto;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: var(--gym);
+      color: #297c5b;
+      font-weight: 900;
+      font-size: 14px;
+    }
+    
+    .exercise-list {
+      display: grid;
+      gap: 12px;
+    }
+    
+    .exercise-item {
+      display: grid;
+      grid-template-columns: 44px 1fr;
+      gap: 14px;
+      align-items: flex-start;
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.66);
+      border: 1px solid rgba(255, 255, 255, 0.88);
+    }
+    
+    .exercise-icon {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      background: rgba(255, 122, 168, 0.1);
+      font-size: 20px;
+    }
+    
+    .exercise-content strong {
+      display: block;
+      font-size: 17px;
+      margin-bottom: 4px;
+    }
+    
+    .exercise-content span {
+      display: inline-flex;
+      width: fit-content;
+      margin-bottom: 7px;
+      padding: 5px 9px;
+      border-radius: 999px;
+      background: rgba(34, 34, 34, 0.045);
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 800;
+    }
+    
+    .exercise-content p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.4;
+    }
+    
+    .empty-workout {
+      text-align: center;
+    }
+
     @media (max-width: 860px) {
       .inspo-grid {
         grid-template-columns: 1fr;
@@ -588,6 +739,26 @@
       .energy-cues {
         grid-template-columns: 1fr;
       }
+
+      .workout-header {
+        flex-direction: column;
+      }
+      
+      .exercise-item {
+        grid-template-columns: 38px 1fr;
+        gap: 12px;
+        padding: 12px;
+      }
+      
+      .exercise-icon {
+        width: 38px;
+        height: 38px;
+        font-size: 18px;
+      }
+      
+      .exercise-content strong {
+        font-size: 16px;
+      }
     }
   </style>
 </head>
@@ -611,9 +782,13 @@
         <button class="tab-button active" type="button" data-tab="schedule">
           Schedule
         </button>
-
+      
         <button class="tab-button" type="button" data-tab="inspo">
           Kat’s training camp ⭐️
+        </button>
+      
+        <button class="tab-button" type="button" data-tab="strength">
+          Strength routines 🏋🏻‍♀️
         </button>
       </nav>
     </section>
@@ -957,6 +1132,145 @@
         </div>
       </section>
     </section>
+    
+    <section id="strength" class="tab-panel">
+      <section class="inspo-card">
+        <h2>Strength workouts</h2>
+    
+        <p>
+          Your strength sessions for the week. Start with the full version, or reduce sets on tired weeks.
+        </p>
+    
+        <div class="workout-tabs" aria-label="Strength workout selector">
+          <button class="workout-tab active" type="button" data-workout="legs">
+            Legs
+          </button>
+    
+          <button class="workout-tab" type="button" data-workout="pull">
+            Pull
+          </button>
+    
+          <button class="workout-tab" type="button" data-workout="push">
+            Push
+          </button>
+    
+          <button class="workout-tab" type="button" data-workout="glutes">
+            Abs & glutes
+          </button>
+        </div>
+      </section>
+    
+      <section id="legs" class="workout-panel active">
+        <article class="workout-card">
+          <div class="workout-header">
+            <div>
+              <span class="workout-label">Thursday · FitUp</span>
+              <h2>Leg day</h2>
+              <p>
+                General lower-body strength: quads, hamstrings, glutes, abductors, adductors and calves.
+              </p>
+            </div>
+    
+            <span class="workout-badge">🦵 Legs</span>
+          </div>
+    
+          <div class="exercise-list">
+            <div class="exercise-item">
+              <div class="exercise-icon">🔥</div>
+              <div class="exercise-content">
+                <strong>Warm up</strong>
+                <span>1 set · Rest 1m</span>
+                <p>Full-body warm-up with dynamic movements: leg swings, arm circles, jumping jacks and high knees.</p>
+              </div>
+            </div>
+    
+            <div class="exercise-item">
+              <div class="exercise-icon">🏋️‍♀️</div>
+              <div class="exercise-content">
+                <strong>Squat</strong>
+                <span>4 sets · 6–10 reps · Rest 1m</span>
+                <p>Barbell or Smith machine. Keep it strong and controlled, not rushed.</p>
+              </div>
+            </div>
+    
+            <div class="exercise-item">
+              <div class="exercise-icon">🍑</div>
+              <div class="exercise-content">
+                <strong>Romanian deadlift</strong>
+                <span>4 sets · 8 reps · Rest 1m</span>
+                <p>Barbell. If using dumbbells, count the weight per hand; with barbell, count total weight.</p>
+              </div>
+            </div>
+    
+            <div class="exercise-item">
+              <div class="exercise-icon">🦵</div>
+              <div class="exercise-content">
+                <strong>Bulgarian split squat</strong>
+                <span>3 sets · 8 reps each leg · Rest 30s</span>
+                <p>Controlled reps. Prioritise balance, depth and form over ego weight.</p>
+              </div>
+            </div>
+    
+            <div class="exercise-item">
+              <div class="exercise-icon">🧱</div>
+              <div class="exercise-content">
+                <strong>Seated leg curl</strong>
+                <span>3 sets · 8–10 reps · Rest 1m</span>
+                <p>Machine. Squeeze the hamstrings and control the return.</p>
+              </div>
+            </div>
+    
+            <div class="exercise-item">
+              <div class="exercise-icon">↔️</div>
+              <div class="exercise-content">
+                <strong>Hip abduction</strong>
+                <span>3 sets · 8 reps · Rest 1m</span>
+                <p>Machine. Focus on controlled movement, not swinging.</p>
+              </div>
+            </div>
+    
+            <div class="exercise-item">
+              <div class="exercise-icon">➡️⬅️</div>
+              <div class="exercise-content">
+                <strong>Hip adduction</strong>
+                <span>3 sets · 8 reps · Rest 1m</span>
+                <p>Machine. Smooth reps and full control.</p>
+              </div>
+            </div>
+    
+            <div class="exercise-item">
+              <div class="exercise-icon">🦶</div>
+              <div class="exercise-content">
+                <strong>Seated calf raise</strong>
+                <span>3 sets · 8–10 reps · Rest 1m</span>
+                <p>Pause at the top, slow lower. No bouncing.</p>
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
+    
+      <section id="pull" class="workout-panel">
+        <article class="workout-card empty-workout">
+          <h2>Pull day</h2>
+          <p>Coming soon — we’ll add your back and biceps routine here.</p>
+        </article>
+      </section>
+    
+      <section id="push" class="workout-panel">
+        <article class="workout-card empty-workout">
+          <h2>Push day</h2>
+          <p>Coming soon — we’ll add your chest, shoulders and triceps routine here.</p>
+        </article>
+      </section>
+    
+      <section id="glutes" class="workout-panel">
+        <article class="workout-card empty-workout">
+          <h2>Abs & glutes</h2>
+          <p>Coming soon — we’ll add your core and glute accessory routine here.</p>
+        </article>
+      </section>
+    </section>
   </main>
 
   <script>
@@ -977,6 +1291,26 @@
 
         button.classList.add("active");
         document.getElementById(selectedTab).classList.add("active");
+      });
+    });
+
+    const workoutTabs = document.querySelectorAll(".workout-tab");
+    const workoutPanels = document.querySelectorAll(".workout-panel");
+    
+    workoutTabs.forEach((button) => {
+      button.addEventListener("click", () => {
+        const selectedWorkout = button.dataset.workout;
+    
+        workoutTabs.forEach((btn) => {
+          btn.classList.remove("active");
+        });
+    
+        workoutPanels.forEach((panel) => {
+          panel.classList.remove("active");
+        });
+    
+        button.classList.add("active");
+        document.getElementById(selectedWorkout).classList.add("active");
       });
     });
 
